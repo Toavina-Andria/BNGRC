@@ -24,5 +24,7 @@
    Cessna 402  (Wings)
    by Dick Williams, rjw1@tyrell.net
 */
-$ds = DIRECTORY_SEPARATOR;
-require(__DIR__ . $ds . '..' . $ds . 'app' . $ds . 'config' . $ds . 'bootstrap.php');
+
+// Redirect to public folder
+header('Location: /BNGRC/public/');
+exit;
