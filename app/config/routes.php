@@ -10,22 +10,19 @@ use flight\net\Router;
 
 /**
  * @var Router $router
-/**
- * @var Router $router
  * @var Engine $app
  */
 
 $router->group('', function(Router $router) use ($app) {
 
 	$router->group('/besoins', function() use ($router, $app) {
-
 		// Liste des besoins
-		$router->get('/', function() use ($app) {
-			$besoinController = new BesoinController($app);
-			$besoins = $besoinController->getAllBesoins();
-			$app->render('besoin/liste', [ 'besoins' => $besoins ]);
-		});
+			$router->get('/liste', [BesoinController::class, 'getAllBesoins']);
+	});
 
+	$router->group('/sinistres', function() use ($router, $app) {
+				// Liste des sinistres
+		$router->get('/liste', [SinistreController::class, 'getAllSinistres']);
 	});
 
 }, [ SecurityHeadersMiddleware::class ]);
