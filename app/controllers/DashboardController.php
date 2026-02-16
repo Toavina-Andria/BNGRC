@@ -41,7 +41,7 @@ class DashboardController
         $besoins_details = $allDetails;
 
         $this->app->render('dashboard/dashboard', [
-            'basepath' => $this->app->get('basepath'),
+            'basepath' => $this->app->get('base_path'),
             'stats' => $stats,
             'sinistres' => $sinistres,
             'besoins_categories' => $besoins_categories,

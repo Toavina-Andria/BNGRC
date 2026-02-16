@@ -29,7 +29,8 @@ Class BesoinController{
 			]
 		];
 		$this->app->render('besoin/liste', [
-			'besoins' => $besoins
+			'besoins' => $besoins,
+			'basepath' => $this->app->get('basepath')
 		]);
 	}
 
