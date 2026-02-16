@@ -1,8 +1,10 @@
 <?php
 namespace app\controllers;
-use app\models\SinistreModel;
+
+use app\models\Sinistre;
 use flight\Engine;
 use Flight;
+use Throwable;
 
 Class SinistreController{
     protected Engine $app;
