@@ -13,17 +13,16 @@ use flight\net\Router;
  * @var Engine $app
  */
 
-$router->group('', function(Router $router)  {
+$router->group('', function(Router $router) use ($app) {
 
-	$router->get('/', [DashboardController::class, 'index']);
-
-	$router->group('/besoins', function() use ($router) {
-
+	$router->group('/besoins', function() use ($router, $app) {
 		// Liste des besoins
-		$router->get('/', function()  {
+			$router->get('/liste', [BesoinController::class, 'getAllBesoins']);
+	});
 
-		});
-
+	$router->group('/sinistres', function() use ($router, $app) {
+				// Liste des sinistres
+		$router->get('/liste', [SinistreController::class, 'getAllSinistres']);
 	});
 
 }, [ SecurityHeadersMiddleware::class ]);
