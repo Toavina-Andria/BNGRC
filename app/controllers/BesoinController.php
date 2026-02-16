@@ -11,7 +11,7 @@ Class BesoinController{
         $this->app = $app;
     }
 
-	public function getAllBesoins() {
+	public function getAllBesoins(): void {
 
 		$besoins = [
 			[
