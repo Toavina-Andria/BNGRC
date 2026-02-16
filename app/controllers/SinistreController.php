@@ -14,17 +14,21 @@ Class SinistreController{
     }
 
 public function getAllSinistres() {
-
-    $sinistres = [
-        [
-            'id' => 1,
-            'nombre_sinistres' => 150,
-            'ville' => 'Toamasina',
-            'region' => 'Atsinanana',
-            'date_sinistre' => '2024-01-10',
-            'description' => 'Inondations dans le district'
-        ]
-    ];
+    // Récupérer les sinistres depuis la base de données
+    $query = Flight::db()->query('
+        SELECT 
+            s.id,
+            s.nombre_sinistres,
+            s.id_ville,
+            v.nom as ville,
+            r.nom as region,
+            v.population
+        FROM bn_sinistre s
+        JOIN bn_ville v ON s.id_ville = v.id
+        JOIN bn_region r ON v.id_region = r.id
+        ORDER BY s.id DESC
+    ');
+    $sinistres = $query->fetchAll();
 
     $this->app->render('sinistre/liste', [
         'sinistres' => $sinistres,

@@ -4,6 +4,7 @@ use app\controllers\SinistreController;
 use app\controllers\BesoinController;
 use app\controllers\DonController;
 use app\controllers\DashboardController;
+use app\controllers\VilleController;
 use app\middlewares\SecurityHeadersMiddleware;
 use flight\Engine;
 use flight\net\Router;
@@ -16,6 +17,11 @@ use flight\net\Router;
 $router->group('', function(Router $router)  {
 
 	$router->get('/', [DashboardController::class, 'index']);
+
+	$router->group('/villes', function() use ($router) {
+		// Voir les besoins d'une ville
+		$router->get('/besoins', [VilleController::class, 'showVilleBesoins']);
+	});
 
 	$router->group('/besoins', function() use ($router) {
 		// Liste des besoins

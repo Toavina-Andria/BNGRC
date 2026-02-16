@@ -17,9 +17,6 @@ $current_page = 'sinistres';
                     <a href="<?= $basepath ?>/sinistres/insert" class="btn btn-primary">
                         <i class="ti ti-plus"></i> Ajouter un sinistre
                     </a>
-                    <a href="<?= $basepath ?>/sinistres/besoins/insert" class="btn btn-info">
-                        <i class="ti ti-package"></i> Ajouter un besoin
-                    </a>
                 </div>
             </div>
         </div>
@@ -37,10 +34,9 @@ $current_page = 'sinistres';
                                     <th><h6 class="fs-4 fw-semibold mb-0">ID</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Ville</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Région</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Nombre</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Date</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Description</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Statut</h6></th>
+                                    <th><h6 class="fs-4 fw-semibold mb-0">Population</h6></th>
+                                    <th><h6 class="fs-4 fw-semibold mb-0">Nombre Sinistrés</h6></th>
+                                    <th><h6 class="fs-4 fw-semibold mb-0">Actions</h6></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,40 +49,32 @@ $current_page = 'sinistres';
                                                 <span class="badge bg-primary-subtle text-primary rounded-circle round-20">
                                                     <i class="ti ti-map-pin"></i>
                                                 </span>
-                                                <p class="mb-0"><?= htmlspecialchars($sinistre['ville'] ?? 'N/A') ?></p>
+                                                <p class="mb-0"><?= htmlspecialchars($sinistre['ville']) ?></p>
                                             </div>
                                         </td>
                                         <td>
                                             <span class="badge bg-secondary-subtle text-secondary">
-                                                <?= htmlspecialchars($sinistre['region'] ?? 'N/A') ?>
+                                                <?= htmlspecialchars($sinistre['region']) ?>
                                             </span>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0"><?= number_format($sinistre['population']) ?></p>
                                         </td>
                                         <td>
                                             <span class="badge bg-danger-subtle text-danger">
-                                                <?= $sinistre['nombre_sinistres'] ?? 0 ?>
+                                                <?= $sinistre['nombre_sinistres'] ?> personnes
                                             </span>
                                         </td>
                                         <td>
-                                            <p class="mb-0 text-muted">
-                                                <i class="ti ti-calendar"></i>
-                                                <?= isset($sinistre['date_sinistre']) ? date('d/m/Y', strtotime($sinistre['date_sinistre'])) : 'N/A' ?>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0 text-muted" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                <?= htmlspecialchars($sinistre['description'] ?? 'Aucune description') ?>
-                                            </p>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success-subtle text-success">
-                                                <i class="ti ti-check"></i> Actif
-                                            </span>
+                                            <a href="<?= $basepath ?>/villes/besoins?id=<?= $sinistre['id_ville'] ?>" class="btn btn-sm btn-info">
+                                                <i class="ti ti-eye"></i> Voir détails
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted py-5">
+                                    <td colspan="6" class="text-center text-muted py-5">
                                         <i class="ti ti-inbox fs-8"></i>
                                         <p class="mt-2 mb-0">Aucun sinistre enregistré</p>
                                         <a href="<?= $basepath ?>/sinistres/insert" class="btn btn-sm btn-primary mt-3">
