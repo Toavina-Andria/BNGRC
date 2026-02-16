@@ -25,6 +25,9 @@ $current_page = 'dons';
                     <a href="<?= $basepath ?>/dons/insert" class="btn btn-sm btn-success">
                         <i class="ti ti-plus"></i> Nouveau don
                     </a>
+                    <a href="<?= $basepath ?>/dons/simuler" class="btn btn-sm btn-info">
+                        <i class="ti ti-eye"></i> Simuler dispatch
+                    </a>
                     <a href="<?= $basepath ?>/dons/dispatch" class="btn btn-sm btn-primary">
                         <i class="ti ti-truck-delivery"></i> Dispatcher les dons
                     </a>
