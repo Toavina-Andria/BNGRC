@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord - Gestion des Sinistres</title>
-    <link href="<?= basepath ?>/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= basepath ?>/assets/css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?=  basepath ?>/assets/css/dashboard.css">
+    <link href="<?= $basepath ?>/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?= $basepath ?>/assets/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="<?=  $basepath ?>/assets/css/dashboard.css">
 </head>
 <body class="bg-light">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<?= basepath ?>/">
+            <a class="navbar-brand" href="<?= $basepath ?>/">
                 <i class="bi bi-shield-exclamation"></i> Gestion des Sinistres
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -21,22 +21,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?= basepath ?>/dashboard">
+                        <a class="nav-link active" href="<?= $basepath ?>/dashboard">
                             <i class="bi bi-speedometer2"></i> Tableau de bord
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= basepath ?>/sinistres">
+                        <a class="nav-link" href="<?= $basepath ?>/sinistres">
                             <i class="bi bi-exclamation-triangle"></i> Sinistres
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= basepath ?>/regions">
+                        <a class="nav-link" href="<?= $basepath ?>/regions">
                             <i class="bi bi-geo-alt"></i> Régions
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= basepath ?>/besoins">
+                        <a class="nav-link" href="<?= $basepath ?>/besoins">
                             <i class="bi bi-box-seam"></i> Besoins
                         </a>
                     </li>
@@ -122,7 +122,7 @@
                         <h5 class="mb-0">
                             <i class="bi bi-exclamation-circle text-danger"></i> Sinistres Récents
                         </h5>
-                        <a href="<?= basepath ?>/sinistres" class="btn btn-sm btn-outline-primary">
+                        <a href="<?= $basepath ?>/sinistres" class="btn btn-sm btn-outline-primary">
                             Voir tout <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -160,11 +160,11 @@
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?= basepath ?>/sinistres/view/<?= $sinistre['id'] ?>" 
+                                                    <a href="<?= $basepath ?>/sinistres/view/<?= $sinistre['id'] ?>" 
                                                        class="btn btn-sm btn-outline-info">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
-                                                    <a href="<?= basepath ?>/sinistres/edit/<?= $sinistre['id'] ?>" 
+                                                    <a href="<?= $basepath ?>/sinistres/edit/<?= $sinistre['id'] ?>" 
                                                        class="btn btn-sm btn-outline-warning">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
@@ -265,7 +265,7 @@
                         <h5 class="mb-0">
                             <i class="bi bi-list-check text-warning"></i> Besoins Détaillés par Sinistre
                         </h5>
-                        <a href="<?= basepath ?>/besoins/create" class="btn btn-sm btn-primary">
+                        <a href="<?= $basepath ?>/besoins/create" class="btn btn-sm btn-primary">
                             <i class="bi bi-plus-circle"></i> Ajouter un besoin
                         </a>
                     </div>
@@ -302,11 +302,11 @@
                                                     </strong>
                                                 </td>
                                                 <td>
-                                                    <a href="<?= basepath ?>/besoins/edit/<?= $besoin['id'] ?>" 
+                                                    <a href="<?= $basepath ?>/besoins/edit/<?= $besoin['id'] ?>" 
                                                        class="btn btn-sm btn-outline-warning">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
-                                                    <a href="<?= basepath ?>/besoins/delete/<?= $besoin['id'] ?>" 
+                                                    <a href="<?= $basepath ?>/besoins/delete/<?= $besoin['id'] ?>" 
                                                        class="btn btn-sm btn-outline-danger"
                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce besoin ?')">
                                                         <i class="bi bi-trash"></i>
@@ -340,6 +340,6 @@
         </div>
     </footer>
 
-    <script src="<?= basepath ?>/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $basepath ?>/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
