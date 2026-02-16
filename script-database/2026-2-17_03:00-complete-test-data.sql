@@ -140,13 +140,12 @@ INSERT INTO bn_don (type, donateur, date_don, id_ville) VALUES
 ('nature', 'Association Scouts', '2026-02-16 14:00:00', NULL),
 ('nature', 'Donateur Anonyme B', '2026-02-17 10:00:00', NULL);
 
-INSERT INTO bn_don_nature (id_don, id_categorie_besoin, description, quantite) VALUES
 -- Don 9: PAM
-(9, 1, 'Sacs de riz 25kg - donation internationale', 2000),
-(9, 2, 'Bidons d\'eau 20L', 5000),
 
 -- Don 10: UNICEF
 INSERT INTO bn_don_nature (id_don, id_categorie_besoin, description, quantite) VALUES
+(9, 1, 'Sacs de riz 25kg - donation internationale', 2000),
+(9, 2, 'Bidons d\'eau 20L', 5000),
 (10, 2, 'Comprimés purification d\'eau', 10000),
 (10, 6, 'Kits d\'hygiène pour enfants', 1500),
 (10, 8, 'Fournitures scolaires complètes', 800),
