@@ -116,10 +116,12 @@ $current_page = 'dons';
                                             <td><?= htmlspecialchars($detail['categorie']) ?></td>
                                             <td><strong><?= $detail['quantite'] ?></strong> unités</td>
                                             <td>
-                                                <?php if (isset($detail['montant'])): ?>
+                                                <?php if ($detail['type'] == 'argent' && isset($detail['montant'])): ?>
+                                                    <!-- Montant utilisé (seulement pour dons argent) -->
                                                     <?= number_format($detail['montant'], 0, ',', ' ') ?> Ar
                                                 <?php else: ?>
-                                                    -
+                                                    <!-- Pas de montant pour dons nature (gratuit) -->
+                                                    <span class="text-muted">-</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td><?= htmlspecialchars($detail['ville']) ?></td>

@@ -1,3 +1,9 @@
+<?php 
+// Fonction helper pour formater les nombres en gérant les valeurs null
+function safe_number_format($number, $decimals = 0, $dec_point = ',', $thousands_sep = ' ') {
+    return number_format($number ?? 0, $decimals, $dec_point, $thousands_sep);
+}
+?>
 <?php require_once __DIR__ . '/partial/head.php'; ?>
 <?php require_once __DIR__ . '/partial/header.php'; ?>
 
@@ -26,10 +32,10 @@
                                 <div class="flex-grow-1">
                                     <h6 class="text-primary mb-1">Besoins Totaux</h6>
                                     <h4 class="mb-0" id="montant_total">
-                                        <?= number_format($data['besoins']['montant_total'], 0, ',', ' ') ?> Ar
+                                        <?= safe_number_format($data['besoins']['montant_total'], 0, ',', ' ') ?> Ar
                                     </h4>
                                     <small class="text-muted" id="quantite_totale">
-                                        <?= number_format($data['besoins']['quantite_totale'], 0, ',', ' ') ?> unités
+                                        <?= safe_number_format($data['besoins']['quantite_totale'], 0, ',', ' ') ?> unités
                                     </small>
                                 </div>
                                 <div class="text-primary fs-1">
@@ -47,10 +53,10 @@
                                 <div class="flex-grow-1">
                                     <h6 class="text-success mb-1">Besoins Satisfaits</h6>
                                     <h4 class="mb-0" id="montant_satisfait">
-                                        <?= number_format($data['besoins']['montant_satisfait'], 0, ',', ' ') ?> Ar
+                                        <?= safe_number_format($data['besoins']['montant_satisfait'], 0, ',', ' ') ?> Ar
                                     </h4>
                                     <small class="text-muted" id="quantite_satisfaite">
-                                        <?= number_format($data['besoins']['quantite_satisfaite'], 0, ',', ' ') ?> unités
+                                        <?= safe_number_format($data['besoins']['quantite_satisfaite'], 0, ',', ' ') ?> unités
                                     </small>
                                 </div>
                                 <div class="text-success fs-1">
@@ -68,10 +74,10 @@
                                 <div class="flex-grow-1">
                                     <h6 class="text-danger mb-1">Besoins Restants</h6>
                                     <h4 class="mb-0" id="montant_restant">
-                                        <?= number_format($data['besoins']['montant_restant'], 0, ',', ' ') ?> Ar
+                                        <?= safe_number_format($data['besoins']['montant_restant'], 0, ',', ' ') ?> Ar
                                     </h4>
                                     <small class="text-muted" id="quantite_restante">
-                                        <?= number_format($data['besoins']['quantite_restante'], 0, ',', ' ') ?> unités
+                                        <?= safe_number_format($data['besoins']['quantite_restante'], 0, ',', ' ') ?> unités
                                     </small>
                                 </div>
                                 <div class="text-danger fs-1">
@@ -89,7 +95,7 @@
                                 <div class="flex-grow-1">
                                     <h6 class="text-info mb-1">Taux de Couverture</h6>
                                     <h4 class="mb-0" id="taux_couverture">
-                                        <?= number_format($data['besoins']['taux_couverture'], 2) ?> %
+                                        <?= safe_number_format($data['besoins']['taux_couverture'], 2) ?> %
                                     </h4>
                                     <div class="progress mt-2" style="height: 8px;">
                                         <div class="progress-bar bg-info" role="progressbar" 
@@ -132,13 +138,13 @@
                                     <tr>
                                         <td><?= htmlspecialchars($cat['categorie']) ?></td>
                                         <td class="text-end">
-                                            <?= number_format($cat['montant_total_categorie'], 2, ',', ' ') ?> Ar
+                                            <?= safe_number_format($cat['montant_total_categorie'], 2, ',', ' ') ?> Ar
                                         </td>
                                         <td class="text-end text-success">
-                                            <?= number_format($cat['montant_satisfait_categorie'], 2, ',', ' ') ?> Ar
+                                            <?= safe_number_format($cat['montant_satisfait_categorie'], 2, ',', ' ') ?> Ar
                                         </td>
                                         <td class="text-end text-danger">
-                                            <?= number_format($cat['montant_restant_categorie'], 2, ',', ' ') ?> Ar
+                                            <?= safe_number_format($cat['montant_restant_categorie'], 2, ',', ' ') ?> Ar
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
@@ -147,7 +153,7 @@
                                                          style="width: <?= $taux_cat ?>%">
                                                     </div>
                                                 </div>
-                                                <small class="text-muted"><?= number_format($taux_cat, 1) ?>%</small>
+                                                <small class="text-muted"><?= safe_number_format($taux_cat, 1) ?>%</small>
                                             </div>
                                         </td>
                                     </tr>
@@ -178,12 +184,12 @@
                         <div class="col-md-3">
                             <div class="border-end pe-3">
                                 <p class="text-muted mb-1">Montant Total Argent</p>
-                                <h4 class="mb-0"><?= number_format($data['dons']['montant_total_argent'], 0, ',', ' ') ?> Ar</h4>
+                                <h4 class="mb-0"><?= safe_number_format($data['dons']['montant_total_argent'], 0, ',', ' ') ?> Ar</h4>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <p class="text-muted mb-1">Argent Restant</p>
-                            <h4 class="mb-0 text-success"><?= number_format($data['dons']['montant_restant_argent'], 0, ',', ' ') ?> Ar</h4>
+                            <h4 class="mb-0 text-success"><?= safe_number_format($data['dons']['montant_restant_argent'], 0, ',', ' ') ?> Ar</h4>
                         </div>
                     </div>
                 </div>

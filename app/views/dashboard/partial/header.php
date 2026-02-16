@@ -1,3 +1,9 @@
+<?php
+// Définir $current_page par défaut si non défini
+if (!isset($current_page)) {
+    $current_page = '';
+}
+?>
     <!-- Sidebar Start -->
     <aside class="left-sidebar">
       <!-- Sidebar scroll-->
