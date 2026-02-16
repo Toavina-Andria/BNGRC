@@ -22,6 +22,16 @@ $router->group('', function(Router $router)  {
 			$router->get('/liste', [BesoinController::class, 'getAllBesoins']);
 	});
 
+	$router->group('/dons', function() use ($router) {
+		// Liste des dons
+		$router->get('/liste', [DonController::class, 'listeDons']);
+		// formulaire d'ajout de don
+		$router->get('/insert', [DonController::class, 'showDonForm']);
+		$router->post('/insert', [DonController::class, 'insertDon']);
+		// dispatch des dons
+		$router->get('/dispatch', [DonController::class, 'dispatchDons']);
+	});
+
 	$router->group('/sinistres', function() use ($router) {
 				// Liste des sinistres
 		$router->get('/liste', [SinistreController::class, 'getAllSinistres']);
