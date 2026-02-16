@@ -14,7 +14,12 @@ class InsertionController
         $this->app = $app;
     }
 
-       public function insertSinistre() {
+       // affiche le formulaire d'ajout de sinistre
+    public function showSinistreForm() {
+        $this->app->render('sinistre/form');
+    }
+
+    public function insertSinistre() {
         try {
             $nombre = $this->app->request()->data->nombre_sinistres;
             $idVille = $this->app->request()->data->id_ville;
@@ -30,7 +35,12 @@ class InsertionController
         }
     }
 
-        public function insertBesoin() {
+        // affiche formulaire d'ajout de besoin lié à un sinistre
+    public function showBesoinForm() {
+        $this->app->render('sinistre/besoin_form');
+    }
+
+    public function insertBesoin() {
         try {
             $idSinistre = $this->app->request()->data->id_sinistre;
             $idCategorie = $this->app->request()->data->id_categorie_besoin;

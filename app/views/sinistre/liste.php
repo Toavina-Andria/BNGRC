@@ -9,6 +9,10 @@
 
 <div class="container mt-5">
     <h2 class="mb-4">Liste des sinistres</h2>
+    <div class="mb-3">
+        <a href="/sinistres/insert" class="btn btn-success">Ajouter un sinistre</a>
+        <a href="/sinistres/besoins/insert" class="btn btn-info">Ajouter un besoin</a>
+    </div>
 
     <table class="table table-bordered">
         <thead class="table-dark">

@@ -189,6 +189,28 @@ public function getAllSinistres() {
     /**
      * Récupère le résumé des sinistres pour le dashboard
      */
+    // affiche le formulaire d'ajout de sinistre
+    public function showInsertForm() {
+        $this->app->render('sinistre/form');
+    }
+
+    // traite l'envoi du formulaire d'ajout
+    public function insertSinistre() {
+        try {
+            $nombre = $this->app->request()->data->nombre_sinistres;
+            $idVille = $this->app->request()->data->id_ville;
+
+            if (empty($nombre) || empty($idVille)) {
+                $this->app->halt(400, "Champs obligatoires.");
+            }
+
+            Sinistre::create($nombre, $idVille);
+            $this->app->redirect('/sinistres/liste');
+        } catch (Throwable $e) {
+            $this->app->halt(500, "Erreur : " . $e->getMessage());
+        }
+    }
+
     public function getSinistreResume() {
         $resume = [
             'actifs' => 4,
