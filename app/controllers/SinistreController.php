@@ -12,16 +12,15 @@ Class SinistreController{
     }
 
     public function getAllSinistres() {
-        $sinistres = [
-            [
+
+        $this->app->render('sinistre/liste',[
                 'id' => 1,
                 'nombre_sinistres' => 150,
                 'ville' => 'Toamasina',
                 'region' => 'Atsinanana',
                 'date_sinistre' => '2024-01-10',
                 'description' => 'Inondations dans le district'
-            ]
-        ];
+        ]);
 
         $this->app->json($sinistres, 200, true, 'utf-8', JSON_PRETTY_PRINT);
     }
