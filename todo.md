@@ -5,14 +5,14 @@
 ### Front - office:
 
  - Création des fichiers d'affichage : 
-    - dashboard
+    - dashboard (ok)
     - header
     - footer
 - Création des assets :
     - front css 
-        - dashboard
-        - header
-        - footer
+        - dashboard (ok)
+        - header (ok)
+        - footer (ok)
 - Implémentation des fonctions
 
 ### Back - Office:
