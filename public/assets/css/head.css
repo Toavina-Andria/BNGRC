@@ -16,6 +16,7 @@
             background: linear-gradient(135deg, #000000 0%, #000814 25%, #001d3d 75%, #003566 100%);
             min-height: 100vh;
             background-attachment: fixed;
+            padding-top: 0;
         }
 
         .sidebar {

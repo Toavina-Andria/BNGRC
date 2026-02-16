@@ -13,7 +13,7 @@ $current_page = 'sinistres';
                     <h4 class="mb-1 fw-semibold"><i class="ti ti-package text-info"></i> Ajouter un Besoin</h4>
                     <p class="mb-0 text-muted">Enregistrer un besoin associé à un sinistre</p>
                 </div>
-                <a href="<?= $basepath ?>/sinistres" class="btn btn-secondary">
+                <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                     <i class="ti ti-arrow-left"></i> Retour aux sinistres
                 </a>
             </div>
@@ -72,7 +72,7 @@ $current_page = 'sinistres';
                             <button type="submit" class="btn btn-primary">
                                 <i class="ti ti-device-floppy"></i> Enregistrer
                             </button>
-                            <a href="<?= $basepath ?>/sinistres" class="btn btn-secondary">
+                            <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                                 <i class="ti ti-x"></i> Annuler
                             </a>
                         </div>

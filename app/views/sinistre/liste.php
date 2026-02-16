@@ -40,7 +40,7 @@ $current_page = 'sinistres';
                                     <th><h6 class="fs-4 fw-semibold mb-0">Nombre</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Date</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Description</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Actions</h6></th>
+                                    <th><h6 class="fs-4 fw-semibold mb-0">Statut</h6></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,21 +78,9 @@ $current_page = 'sinistres';
                                             </p>
                                         </td>
                                         <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="<?= $basepath ?>/sinistres/view/<?= $sinistre['id'] ?>" 
-                                                   class="btn btn-sm btn-info" title="Voir">
-                                                    <i class="ti ti-eye fs-5"></i>
-                                                </a>
-                                                <a href="<?= $basepath ?>/sinistres/edit/<?= $sinistre['id'] ?>" 
-                                                   class="btn btn-sm btn-warning" title="Modifier">
-                                                    <i class="ti ti-pencil fs-5"></i>
-                                                </a>
-                                                <a href="<?= $basepath ?>/sinistres/delete/<?= $sinistre['id'] ?>" 
-                                                   class="btn btn-sm btn-danger" title="Supprimer"
-                                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce sinistre ?')">
-                                                    <i class="ti ti-trash fs-5"></i>
-                                                </a>
-                                            </div>
+                                            <span class="badge bg-success-subtle text-success">
+                                                <i class="ti ti-check"></i> Actif
+                                            </span>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

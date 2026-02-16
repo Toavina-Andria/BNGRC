@@ -14,10 +14,7 @@ $current_page = 'sinistres';
                     <p class="mb-0 text-muted">Informations complètes sur le sinistre</p>
                 </div>
                 <div class="d-flex gap-2">
-                    <a href="<?= $basepath ?>/sinistres/edit/<?= $sinistre['id'] ?? '#' ?>" class="btn btn-warning">
-                        <i class="ti ti-pencil"></i> Modifier
-                    </a>
-                    <a href="<?= $basepath ?>/sinistres" class="btn btn-secondary">
+                    <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                         <i class="ti ti-arrow-left"></i> Retour
                     </a>
                 </div>
@@ -132,13 +129,10 @@ $current_page = 'sinistres';
                         <i class="ti ti-bolt"></i> Actions Rapides
                     </h5>
                     <div class="d-grid gap-2">
-                        <a href="<?= $basepath ?>/sinistres/edit/<?= $sinistre['id'] ?? '#' ?>" class="btn btn-warning">
-                            <i class="ti ti-pencil"></i> Modifier ce sinistre
-                        </a>
                         <a href="<?= $basepath ?>/sinistres/besoins/insert?sinistre=<?= $sinistre['id'] ?? '' ?>" class="btn btn-info">
                             <i class="ti ti-plus"></i> Ajouter un besoin
                         </a>
-                        <a href="<?= $basepath ?>/sinistres" class="btn btn-secondary">
+                        <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                             <i class="ti ti-list"></i> Liste des sinistres
                         </a>
                     </div>

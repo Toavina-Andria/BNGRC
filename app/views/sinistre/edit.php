@@ -14,10 +14,7 @@ $current_page = 'sinistres';
                     <p class="mb-0 text-muted">Mettre à jour les informations du sinistre</p>
                 </div>
                 <div class="d-flex gap-2">
-                    <a href="<?= $basepath ?>/sinistres/view/<?= $sinistre['id'] ?? '#' ?>" class="btn btn-info">
-                        <i class="ti ti-eye"></i> Voir
-                    </a>
-                    <a href="<?= $basepath ?>/sinistres" class="btn btn-secondary">
+                    <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                         <i class="ti ti-arrow-left"></i> Retour
                     </a>
                 </div>
@@ -73,7 +70,7 @@ $current_page = 'sinistres';
                             <button type="submit" class="btn btn-warning">
                                 <i class="ti ti-device-floppy"></i> Mettre à jour
                             </button>
-                            <a href="<?= $basepath ?>/sinistres/view/<?= $sinistre['id'] ?? '#' ?>" class="btn btn-secondary">
+                            <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                                 <i class="ti ti-x"></i> Annuler
                             </a>
                         </div>
@@ -106,13 +103,8 @@ $current_page = 'sinistres';
 
             <div class="card bg-danger-subtle mt-3">
                 <div class="card-body">
-                    <h6 class="fw-semibold mb-2"><i class="ti ti-trash"></i> Zone Dangereuse</h6>
-                    <p class="mb-2"><small>Supprimer définitivement ce sinistre</small></p>
-                    <a href="<?= $basepath ?>/sinistres/delete/<?= $sinistre['id'] ?? '#' ?>" 
-                       class="btn btn-danger btn-sm w-100"
-                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce sinistre ? Cette action est irréversible.')">
-                        <i class="ti ti-trash"></i> Supprimer
-                    </a>
+                    <h6 class="fw-semibold mb-2"><i class="ti ti-alert-triangle"></i> Attention</h6>
+                    <p class="mb-0"><small>Les modifications seront enregistrées immédiatement après validation du formulaire</small></p>
                 </div>
             </div>
         </div>

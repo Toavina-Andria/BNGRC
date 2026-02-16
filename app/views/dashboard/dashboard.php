@@ -139,7 +139,7 @@ $current_page = 'dashboard';
                             <a href="<?= $basepath ?>/sinistres/insert" class="btn btn-sm btn-success">
                                 <i class="ti ti-plus"></i> Nouveau
                             </a>
-                            <a href="<?= $basepath ?>/sinistres" class="btn btn-sm btn-primary">
+                            <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-sm btn-primary">
                                 Voir tout <i class="ti ti-arrow-right"></i>
                             </a>
                         </div>
@@ -153,7 +153,7 @@ $current_page = 'dashboard';
                                     <th><h6 class="fs-4 fw-semibold mb-0">Région</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Population</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Nombre</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Actions</h6></th>
+                                    <th><h6 class="fs-4 fw-semibold mb-0">Statut</h6></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -181,16 +181,9 @@ $current_page = 'dashboard';
                                                 </span>
                                             </td>
                                             <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="<?= $basepath ?>/sinistres/view/<?= $sinistre['id'] ?>" 
-                                                       class="btn btn-sm btn-info">
-                                                        <i class="ti ti-eye fs-5"></i>
-                                                    </a>
-                                                    <a href="<?= $basepath ?>/sinistres/edit/<?= $sinistre['id'] ?>" 
-                                                       class="btn btn-sm btn-warning">
-                                                        <i class="ti ti-pencil fs-5"></i>
-                                                    </a>
-                                                </div>
+                                                <span class="badge bg-success-subtle text-success">
+                                                    <i class="ti ti-check"></i> Enregistré
+                                                </span>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -281,7 +274,7 @@ $current_page = 'dashboard';
                             <p class="card-subtitle text-muted">Détails complets des besoins identifiés</p>
                         </div>
                         <div class="ms-auto mt-3 mt-md-0">
-                            <a href="<?= $basepath ?>/besoins/create" class="btn btn-sm btn-primary">
+                            <a href="<?= $basepath ?>/sinistres/besoins/insert" class="btn btn-sm btn-primary">
                                 <i class="ti ti-plus"></i> Ajouter un besoin
                             </a>
                         </div>
@@ -295,7 +288,7 @@ $current_page = 'dashboard';
                                     <th><h6 class="fs-4 fw-semibold mb-0">Catégorie</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Description</h6></th>
                                     <th><h6 class="fs-4 fw-semibold mb-0">Quantité</h6></th>
-                                    <th><h6 class="fs-4 fw-semibold mb-0">Actions</h6></th>
+                                    <th><h6 class="fs-4 fw-semibold mb-0">Statut</h6></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -318,16 +311,9 @@ $current_page = 'dashboard';
                                                 </p>
                                             </td>
                                             <td>
-                                                <div class="d-flex gap-2">
-                                                    <a href="<?= $basepath ?>/besoins/edit/<?= $besoin['id'] ?>" 
-                                                       class="btn btn-sm btn-warning">
-                                                        <i class="ti ti-pencil fs-5"></i>
-                                                    </a>
-                                                    <a href="<?= $basepath ?>/besoins/delete/<?= $besoin['id'] ?>" 
-                                                       class="btn btn-sm btn-danger"
-                                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce besoin ?')">
-                                                        <i class="ti ti-trash fs-5"></i>
-                                                    </a>
+                                                <span class="badge bg-warning-subtle text-warning">
+                                                    <i class="ti ti-clock"></i> En attente
+                                                </span>
                                                 </div>
                                             </td>
                                         </tr>

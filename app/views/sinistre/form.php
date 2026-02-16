@@ -63,7 +63,7 @@ $current_page = 'sinistres';
                             <button type="submit" class="btn btn-primary">
                                 <i class="ti ti-device-floppy"></i> Enregistrer
                             </button>
-                            <a href="<?= $basepath ?>/sinistres" class="btn btn-secondary">
+                            <a href="<?= $basepath ?>/sinistres/liste" class="btn btn-secondary">
                                 <i class="ti ti-x"></i> Annuler
                             </a>
                         </div>
