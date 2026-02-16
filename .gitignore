@@ -1,1 +1,17 @@
 todo.md
+.vscode/
+.idea/
+*.log
+*.tmp
+*.bak
+.DS_Store
+node_modules/
+dist/
+build/
+coverage/
+.env
+*.env
+*.local
+*.swp
+*.swo
+*.swn
