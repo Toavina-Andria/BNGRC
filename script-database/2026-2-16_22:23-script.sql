@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS bn_sinistre_besoin (
     id_categorie_besoin INT,
     description VARCHAR(255),
     quantite INT NOT NULL,
-    prix_unitaite DECIMAL(10, 2),
+    prix_unitaire DECIMAL(10, 2),
     FOREIGN KEY (id_sinistre) REFERENCES bn_sinistre(id),
     FOREIGN KEY (id_categorie_besoin) REFERENCES bn_categorie_besoin(id)
 );
