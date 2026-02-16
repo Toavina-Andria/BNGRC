@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 use Flight;
-class Sinstre
+class Sinistre
 {
     //CRUD basique pour la table sinistre
     // insert
@@ -16,7 +16,7 @@ class Sinstre
         $query = Flight::db()->prepare('UPDATE bn_sinistre SET nombre_sinistres = ?, id_ville = ? WHERE id = ?');
         $query->execute([$nombre_sinistres, $id_ville, $id]);
     }
-
+    
     // findAll
     public static function findAll()
     {
