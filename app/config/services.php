@@ -20,7 +20,6 @@ Debugger::$strictMode = true; // Show all errors (set to E_ALL & ~E_DEPRECATED f
 if (Debugger::$showBar === true && php_sapi_name() !== 'cli') {
 	(new TracyExtensionLoader($app)); // Load FlightPHP Tracy extensions
 }
-/ MySQL Example:
 $dsn = 'mysql:host=' . $config['database']['host'] . ';dbname=' . $config['database']['dbname'] . ';charset=utf8mb4';
 
 // SQLite Example:
