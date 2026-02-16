@@ -3,7 +3,7 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="<?= $basepath ?>/dashboard" class="text-nowrap logo-img">
+          <a href="<?= $basepath ?>/" class="text-nowrap logo-img">
             <span class="fs-5 fw-bold text-primary"><i class="ti ti-shield-exclamation"></i> BNGRC</span>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -18,7 +18,7 @@
               <span class="hide-menu">Menu Principal</span>
             </li>
             <li class="sidebar-item <?= $current_page === 'dashboard' ? 'selected' : '' ?>">
-              <a class="sidebar-link" href="<?= $basepath ?>/dashboard" aria-expanded="false">
+              <a class="sidebar-link" href="<?= $basepath ?>/" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -32,38 +32,11 @@
             </li>
             
             <li class="sidebar-item <?= $current_page === 'sinistres' ? 'selected' : '' ?>">
-              <a class="sidebar-link" href="<?= $basepath ?>/sinistres" aria-expanded="false">
+              <a class="sidebar-link" href="<?= $basepath ?>/sinistres/liste" aria-expanded="false">
                 <span>
                   <i class="ti ti-alert-triangle"></i>
                 </span>
                 <span class="hide-menu">Sinistres</span>
-              </a>
-            </li>
-            
-            <li class="sidebar-item <?= $current_page === 'besoins' ? 'selected' : '' ?>">
-              <a class="sidebar-link" href="<?= $basepath ?>/besoins" aria-expanded="false">
-                <span>
-                  <i class="ti ti-package"></i>
-                </span>
-                <span class="hide-menu">Besoins</span>
-              </a>
-            </li>
-            
-            <li class="sidebar-item <?= $current_page === 'villes' ? 'selected' : '' ?>">
-              <a class="sidebar-link" href="<?= $basepath ?>/villes" aria-expanded="false">
-                <span>
-                  <i class="ti ti-building"></i>
-                </span>
-                <span class="hide-menu">Villes</span>
-              </a>
-            </li>
-            
-            <li class="sidebar-item <?= $current_page === 'regions' ? 'selected' : '' ?>">
-              <a class="sidebar-link" href="<?= $basepath ?>/regions" aria-expanded="false">
-                <span>
-                  <i class="ti ti-map"></i>
-                </span>
-                <span class="hide-menu">Régions</span>
               </a>
             </li>
           </ul>
@@ -109,7 +82,6 @@
                       <i class="ti ti-settings fs-6"></i>
                       <p class="mb-0 fs-3">Paramètres</p>
                     </a>
-                    <a href="<?= $basepath ?>/logout" class="btn btn-outline-primary mx-3 mt-2 d-block">Déconnexion</a>
                   </div>
                 </div>
               </li>
