@@ -8,7 +8,7 @@ $current_page = 'dashboard';
     <!-- Page Header -->
     <div class="row">
         <div class="col-12">
-            <div class="d-flex align-items-center mb-4">
+            <div class="d-flex align-items-center">
                 <div>
                     <h4 class="mb-1 fw-semibold">Tableau de Bord BNGRC</h4>
                     <p class="mb-0 text-muted">Vue d'ensemble des sinistres et besoins</p>

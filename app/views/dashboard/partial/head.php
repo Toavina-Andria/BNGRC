@@ -12,8 +12,8 @@ if (!isset($basepath)) {
     <title>Tableau de Bord - Gestion des Sinistres BNGRC</title>
     <link rel="stylesheet" href="<?= $basepath ?>/assets/css/styles.min.css" />
     <link rel="stylesheet" href="<?= $basepath ?>/assets/css/icons/tabler-icons/tabler-icons.css" />
+    <link rel="stylesheet" href="<?= $basepath ?>/assets/css/head.css" />
 </head>
 <body>
   <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed"></body>
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" ></body>
