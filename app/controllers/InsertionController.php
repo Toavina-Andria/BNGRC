@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\Sinistre;
 use app\models\SinistreBesoin;
+use app\utils\Validator;
 use Throwable;
 
 class InsertionController
@@ -24,8 +25,8 @@ class InsertionController
             $nombre = $this->app->request()->data->nombre_sinistres;
             $idVille = $this->app->request()->data->id_ville;
 
-            if (empty($nombre) || empty($idVille)) {
-                $this->app->halt(400, "Champs obligatoires.");
+            if (!Validator::validatePositiveInteger($nombre) || empty($idVille)) {
+                $this->app->halt(400, "Le nombre de sinistrés doit être un entier positif.");
             }
 
             // Vérifier que la ville existe
@@ -37,7 +38,7 @@ class InsertionController
                 $this->app->halt(400, "Ville invalide ou inexistante.");
             }
 
-            Sinistre::create($nombre, $idVille);
+            Sinistre::create(intval($nombre), intval($idVille));
             
             // Récupérer l'id du dernier sinistre inséré
             $queryLast = \Flight::db()->prepare('SELECT id FROM bn_sinistre ORDER BY id DESC LIMIT 1');
@@ -78,17 +79,17 @@ class InsertionController
         try {
             $idSinistre = $this->app->request()->data->id_sinistre;
             $idCategorie = $this->app->request()->data->id_categorie_besoin;
-            $description = $this->app->request()->data->description;
+            $description = Validator::sanitizeString($this->app->request()->data->description);
             $quantite = $this->app->request()->data->quantite;
             $prix_unitaire = $this->app->request()->data->prix_unitaire;
             $action = $this->app->request()->data->action ?? 'finish';
 
-            if (empty($idSinistre) || empty($idCategorie) || $quantite === null || $prix_unitaire === null) {
+            if (empty($idSinistre) || empty($idCategorie)) {
                 $this->app->halt(400, "Champs obligatoires manquants.");
             }
 
-            if ($quantite <= 0 || $prix_unitaire <= 0) {
-                $this->app->halt(400, "La quantité et le prix unitaire doivent être positifs.");
+            if (!Validator::validatePositiveInteger($quantite) || !Validator::validatePositiveAmount($prix_unitaire)) {
+                $this->app->halt(400, "La quantité doit être un entier positif et le prix unitaire doit être un nombre positif.");
             }
 
             // Vérifier que le sinistre existe
@@ -109,7 +110,7 @@ class InsertionController
                 $this->app->halt(400, "Catégorie invalide ou inexistante.");
             }
 
-            SinistreBesoin::create($idSinistre, $idCategorie, $description, $quantite, $prix_unitaire);
+            SinistreBesoin::create(intval($idSinistre), intval($idCategorie), $description, intval($quantite), floatval($prix_unitaire));
 
             // Vérifier l'action demandée
             if ($action === 'add_another') {

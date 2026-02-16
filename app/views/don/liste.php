@@ -25,6 +25,9 @@ $current_page = 'dons';
                     <a href="<?= $basepath ?>/dons/insert" class="btn btn-sm btn-success">
                         <i class="ti ti-plus"></i> Nouveau don
                     </a>
+                    <a href="<?= $basepath ?>/dons/simuler" class="btn btn-sm btn-info">
+                        <i class="ti ti-eye"></i> Simuler dispatch
+                    </a>
                     <a href="<?= $basepath ?>/dons/dispatch" class="btn btn-sm btn-primary">
                         <i class="ti ti-truck-delivery"></i> Dispatcher les dons
                     </a>
@@ -48,7 +51,8 @@ $current_page = 'dons';
                                         <th>Donateur</th>
                                         <th>Catégorie</th>
                                         <th>Description</th>
-                                        <th>Montant/Quantité</th>
+                                        <th>Quantité</th>
+                                        <th>Montant</th>
                                         <th>Ville</th>
                                         <th>Statut</th>
                                     </tr>
@@ -79,16 +83,25 @@ $current_page = 'dons';
                                             <?php endif; ?>
                                         </td>
                                         <td><?= htmlspecialchars($don['description'] ?? '-') ?></td>
+                                        <!-- Quantité (pour dons nature) -->
+                                        <td class="fw-semibold">
+                                            <?php if ($don['type'] == 'nature'): ?>
+                                                <span class="badge bg-primary fs-5"><?= $don['quantite'] ?> unités</span>
+                                            <?php else: ?>
+                                                <span class="text-muted">-</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <!-- Montant (pour dons argent) -->
                                         <td class="fw-semibold">
                                             <?php if ($don['type'] == 'argent'): ?>
-                                                <?= number_format($don['montant'], 0, ',', ' ') ?> Ar
+                                                <div><?= number_format($don['montant'], 0, ',', ' ') ?> Ar</div>
                                                 <?php if ($don['montant_restant'] < $don['montant']): ?>
-                                                    <div class="text-success fs-2">
+                                                    <small class="text-success">
                                                         Restant: <?= number_format($don['montant_restant'], 0, ',', ' ') ?> Ar
-                                                    </div>
+                                                    </small>
                                                 <?php endif; ?>
                                             <?php else: ?>
-                                                <?= $don['quantite'] ?> unités
+                                                <span class="text-muted">-</span>
                                             <?php endif; ?>
                                         </td>
                                         <td><?= htmlspecialchars($don['ville_nom'] ?? 'Toutes') ?></td>

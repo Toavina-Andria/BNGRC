@@ -4,6 +4,7 @@ use app\models\Don;
 use app\models\Ville;
 use app\models\CategorieBesoin;
 use app\services\DonService;
+use app\utils\Validator;
 use flight\Engine;
 use Flight;
 use Throwable;
@@ -35,7 +36,7 @@ class DonController{
     {
         try {
             $type = $this->app->request()->data->type;
-            $donateur = $this->app->request()->data->donateur;
+            $donateur = Validator::sanitizeString($this->app->request()->data->donateur);
             $id_ville = $this->app->request()->data->id_ville ?: null;
 
             if (empty($type)) {
@@ -45,19 +46,19 @@ class DonController{
             if ($type == 'argent') {
                 $montant = $this->app->request()->data->montant;
                 
-                if ($montant === null || $montant <= 0) {
-                    $this->app->halt(400, "Le montant doit être supérieur à 0.");
+                if (!Validator::validatePositiveAmount($montant)) {
+                    $this->app->halt(400, "Le montant doit être un nombre positif supérieur à 0.");
                 }
 
-                Don::createDonArgent($donateur, $montant, $id_ville);
+                Don::createDonArgent($donateur, floatval($montant), $id_ville);
                 
             } else if ($type == 'nature') {
                 $id_categorie = $this->app->request()->data->id_categorie_besoin;
-                $description = $this->app->request()->data->description;
+                $description = Validator::sanitizeString($this->app->request()->data->description);
                 $quantite = $this->app->request()->data->quantite;
 
-                if (empty($id_categorie) || $quantite === null || $quantite <= 0) {
-                    $this->app->halt(400, "Catégorie et quantité obligatoires.");
+                if (empty($id_categorie) || !Validator::validatePositiveInteger($quantite)) {
+                    $this->app->halt(400, "Catégorie et quantité (entier positif) obligatoires.");
                 }
 
                 // Vérifier que la catégorie existe
@@ -69,7 +70,7 @@ class DonController{
                     $this->app->halt(400, "Catégorie invalide ou inexistante.");
                 }
 
-                Don::createDonNature($donateur, $id_categorie, $description, $quantite, $id_ville);
+                Don::createDonNature($donateur, intval($id_categorie), $description, intval($quantite), $id_ville);
                 
             } else {
                 $this->app->halt(400, "Type de don invalide.");
@@ -99,7 +100,24 @@ class DonController{
             
             $this->app->render('don/dispatch', [
                 'basepath' => $this->app->get('base_path'),
-                'result' => $result
+                'result' => $result,
+                'simulation' => false
+            ]);
+        } catch (Throwable $e) {
+            $this->app->halt(500, "Erreur : " . $e->getMessage());
+        }
+    }
+
+    // Simuler le dispatch sans l'appliquer
+    public function simulateDispatch()
+    {
+        try {
+            $result = DonService::simulateDispatch();
+            
+            $this->app->render('don/dispatch', [
+                'basepath' => $this->app->get('base_path'),
+                'result' => $result,
+                'simulation' => true
             ]);
         } catch (Throwable $e) {
             $this->app->halt(500, "Erreur : " . $e->getMessage());
