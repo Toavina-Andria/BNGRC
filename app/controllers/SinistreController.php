@@ -27,7 +27,8 @@ public function getAllSinistres() {
     ];
 
     $this->app->render('sinistre/liste', [
-        'sinistres' => $sinistres
+        'sinistres' => $sinistres,
+        'basepath' => $this->app->get('base_path')
     ]);
 }
 
@@ -191,7 +192,14 @@ public function getAllSinistres() {
      */
     // affiche le formulaire d'ajout de sinistre
     public function showInsertForm() {
-        $this->app->render('sinistre/form');
+        // Get villes for dropdown
+        $villes = [];
+        // TODO: Fetch from database using Ville model
+        
+        $this->app->render('sinistre/form', [
+            'villes' => $villes,
+            'basepath' => $this->app->get('base_path')
+        ]);
     }
 
     // traite l'envoi du formulaire d'ajout
