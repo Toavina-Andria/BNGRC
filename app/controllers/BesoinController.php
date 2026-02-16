@@ -13,7 +13,8 @@ Class BesoinController{
 
 	public function getAllBesoins(): void {
 
-		$this->app->render('besoin/liste',[
+		$besoins = [
+			[
 				'id' => 1,
 				'ville' => 'Toamasina',
 				'region' => 'Antsinanana',
@@ -25,9 +26,11 @@ Class BesoinController{
 				'quantite_restante' => 350,
 				'statut' => 'partiellement_satisfait',
 				'date_besoin' => '2024-01-15 10:30:00'
+			]
+		];
+		$this->app->render('besoin/liste', [
+			'besoins' => $besoins
 		]);
-
-		$this->app->json($besoins, 200, true, 'utf-8', JSON_PRETTY_PRINT);
 	}
 
 	public function getBesoin($id) {

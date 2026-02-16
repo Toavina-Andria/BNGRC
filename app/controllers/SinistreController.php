@@ -11,19 +11,24 @@ Class SinistreController{
         $this->app = $app;
     }
 
-    public function getAllSinistres() {
+public function getAllSinistres() {
 
-        $this->app->render('sinistre/liste',[
-                'id' => 1,
-                'nombre_sinistres' => 150,
-                'ville' => 'Toamasina',
-                'region' => 'Atsinanana',
-                'date_sinistre' => '2024-01-10',
-                'description' => 'Inondations dans le district'
-        ]);
+    $sinistres = [
+        [
+            'id' => 1,
+            'nombre_sinistres' => 150,
+            'ville' => 'Toamasina',
+            'region' => 'Atsinanana',
+            'date_sinistre' => '2024-01-10',
+            'description' => 'Inondations dans le district'
+        ]
+    ];
 
-        $this->app->json($sinistres, 200, true, 'utf-8', JSON_PRETTY_PRINT);
-    }
+    $this->app->render('sinistre/liste', [
+        'sinistres' => $sinistres
+    ]);
+}
+
 
     public function getSinistre($id) {
         $sinistres = [
@@ -213,5 +218,3 @@ Class SinistreController{
         $this->app->json($resume, 200, true, 'utf-8', JSON_PRETTY_PRINT);
     }
 }
-}
-
