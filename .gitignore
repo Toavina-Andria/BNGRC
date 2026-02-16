@@ -6,6 +6,7 @@ todo.md
 *.bak
 .DS_Store
 node_modules/
+app/config/config.php
 dist/
 build/
 coverage/
