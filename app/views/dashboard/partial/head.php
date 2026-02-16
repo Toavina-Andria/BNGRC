@@ -6,7 +6,7 @@
     <title>Tableau de Bord - Gestion des Sinistres</title>
     <link href="<?= $basepath ?>/assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $basepath ?>/assets/css/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?= $basepath ?>/assets/css/header.css">
+    <link rel="stylesheet" href="<?= $basepath ?>/assets/css/head.css">
         
 </head>
 <body></body>
