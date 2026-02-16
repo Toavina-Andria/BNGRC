@@ -1,0 +1,6 @@
+.body-wrapper .container-fluid {
+  padding-top: 5px !important;
+}
+.body-wrapper .container-fluid > .row:first-child {
+  margin-top: 10px !important;
+}
