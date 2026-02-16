@@ -1,5 +1,13 @@
 RewriteEngine On
 
-# Redirect all requests to public folder
-RewriteCond %{REQUEST_URI} !^/public/
-RewriteRule ^(.*)$ public/$1 [L]
+# Serve assets and libs directly from public folder
+RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+RewriteRule ^libs/(.*)$ public/libs/$1 [L]
+
+# Serve test/debug PHP files from public folder
+RewriteRule ^(test|check|debug|url-debug)\.php$ public/$0 [L]
+
+# Route all other requests through index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]

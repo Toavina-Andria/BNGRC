@@ -13,28 +13,17 @@ if ($basePath === '/' || $basePath === '\\') {
     $basePath = '';
 }
 
-$app->set('base_path', $basePath);
+$app->set('basepath', $basePath);  // Changed from 'base_path' to 'basepath'
 Debugger::enable(); // Auto-detects environment
 Debugger::$logDirectory = __DIR__ . $ds . '..' . $ds . 'log'; // Log directory
 Debugger::$strictMode = true; // Show all errors (set to E_ALL & ~E_DEPRECATED for less noise)
 if (Debugger::$showBar === true && php_sapi_name() !== 'cli') {
 	(new TracyExtensionLoader($app)); // Load FlightPHP Tracy extensions
 }
-$dsn = 'mysql:host=' . $config['database']['host'] . ';dbname=' . $config['database']['dbname'] . ';charset=utf8mb4';
-
-// SQLite Example:
-// $dsn = 'sqlite:' . $config['database']['file_path'];
-
-// Register Flight::db() service
-// In development, use PdoQueryCapture to log queries; in production, use PdoWrapper for performance.
-$pdoClass = Debugger::$showBar === true ? PdoQueryCapture::class : PdoWrapper::class;
-$app->register('db', $pdoClass, [ $dsn, $config['database']['user'] ?? null, $config['database']['password'] ?? null ]);
 
 /**********************************************
  *           Database Service Setup           *
  **********************************************/
-// Uncomment and configure the following for your database:
-
 // MySQL Example:
 $dsn = 'mysql:host=' . $config['database']['host'] . ';dbname=' . $config['database']['dbname'] . ';charset=utf8mb4';
 
