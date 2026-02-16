@@ -12,7 +12,7 @@ if (!isset($basepath)) {
     <title>Tableau de Bord - Gestion des Sinistres BNGRC</title>
     <link rel="stylesheet" href="<?= $basepath ?>/assets/css/styles.min.css" />
     <link rel="stylesheet" href="<?= $basepath ?>/assets/css/icons/tabler-icons/tabler-icons.css" />
-    <link rel="stylesheet" href="<?= $basepath ?>/assets/css/head.css" />
+    <link rel="stylesheet" href="<?= $basepath ?>/assets/css/head-top.css" />
 </head>
 <body>
   <!--  Body Wrapper -->
