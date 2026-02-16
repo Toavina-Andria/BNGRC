@@ -135,7 +135,10 @@ $current_page = 'dashboard';
                             <h4 class="card-title fw-semibold"><i class="ti ti-alert-triangle text-danger"></i> Sinistres Récents</h4>
                             <p class="card-subtitle text-muted">Liste des derniers sinistres enregistrés</p>
                         </div>
-                        <div class="ms-auto mt-3 mt-md-0">
+                        <div class="ms-auto mt-3 mt-md-0 d-flex gap-2">
+                            <a href="<?= $basepath ?>/sinistres/insert" class="btn btn-sm btn-success">
+                                <i class="ti ti-plus"></i> Nouveau
+                            </a>
                             <a href="<?= $basepath ?>/sinistres" class="btn btn-sm btn-primary">
                                 Voir tout <i class="ti ti-arrow-right"></i>
                             </a>
