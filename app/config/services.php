@@ -12,6 +12,7 @@ $basePath = dirname($scriptName);
 if ($basePath === '/' || $basePath === '\\') {
     $basePath = '';
 }
+
 $app->set('base_path', $basePath);
 Debugger::enable(); // Auto-detects environment
 Debugger::$logDirectory = __DIR__ . $ds . '..' . $ds . 'log'; // Log directory
