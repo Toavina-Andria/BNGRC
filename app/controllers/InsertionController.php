@@ -80,10 +80,15 @@ class InsertionController
             $idCategorie = $this->app->request()->data->id_categorie_besoin;
             $description = $this->app->request()->data->description;
             $quantite = $this->app->request()->data->quantite;
+            $prix_unitaire = $this->app->request()->data->prix_unitaire;
             $action = $this->app->request()->data->action ?? 'finish';
 
-            if (empty($idSinistre) || empty($idCategorie) || $quantite === null) {
-                $this->app->halt(400, "Champs obligatoires.");
+            if (empty($idSinistre) || empty($idCategorie) || $quantite === null || $prix_unitaire === null) {
+                $this->app->halt(400, "Champs obligatoires manquants.");
+            }
+
+            if ($quantite <= 0 || $prix_unitaire <= 0) {
+                $this->app->halt(400, "La quantité et le prix unitaire doivent être positifs.");
             }
 
             // Vérifier que le sinistre existe
@@ -104,7 +109,7 @@ class InsertionController
                 $this->app->halt(400, "Catégorie invalide ou inexistante.");
             }
 
-            SinistreBesoin::create($idSinistre, $idCategorie, $description, $quantite);
+            SinistreBesoin::create($idSinistre, $idCategorie, $description, $quantite, $prix_unitaire);
 
             // Vérifier l'action demandée
             if ($action === 'add_another') {
@@ -112,7 +117,7 @@ class InsertionController
                 $this->app->redirect('/sinistres/besoins/insert?sinistre_id=' . $idSinistre);
             } else {
                 // Rediriger vers le dashboard
-                $this->app->redirect('/sinistres/liste');
+                $this->app->redirect('/');
             }
         } catch (Throwable $e) {
             $this->app->halt(500, "Erreur : " . $e->getMessage());

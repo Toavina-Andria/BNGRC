@@ -25,28 +25,25 @@ class DashboardController
             'total_besoins' => SinistreService::getTotalBesoins()
         ];
 
-        // Get all sinistre details from view
-        $allDetails = SinistreService::getSinistreDetails();
+        // Récupérer les villes avec leurs besoins et dons (vue principale)
+        $query = Flight::db()->query('SELECT * FROM v_dashboard_ville ORDER BY montant_total_besoins DESC');
+        $villes = $query->fetchAll();
 
-        // Get recent sinistres (grouped by sinistre_id)
-        $sinistres = SinistreService::getSinistresGrouped($allDetails);
-
-        // Get besoins by category
-        $besoins_categories = SinistreService::getBesoinsParCategorie($allDetails);
-
-        // Get top regions affected
-        $top_regions = SinistreService::getTopRegions($allDetails);
-
-        // Get detailed besoins list
-        $besoins_details = $allDetails;
+        // Récupérer les totaux des dons
+        $query_total_dons = Flight::db()->query('
+            SELECT 
+                COUNT(DISTINCT d.id) as nb_total_dons,
+                SUM(CASE WHEN d.type = "argent" THEN da.montant_restant ELSE 0 END) as total_argent_disponible
+            FROM bn_don d
+            LEFT JOIN bn_don_argent da ON d.id = da.id_don
+        ');
+        $total_dons = $query_total_dons->fetch();
 
         $this->app->render('dashboard/dashboard', [
             'basepath' => $this->app->get('base_path'),
             'stats' => $stats,
-            'sinistres' => $sinistres,
-            'besoins_categories' => $besoins_categories,
-            'top_regions' => $top_regions,
-            'besoins_details' => $besoins_details
+            'villes' => $villes,
+            'total_dons' => $total_dons
         ]);
     }
 

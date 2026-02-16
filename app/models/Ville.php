@@ -31,7 +31,8 @@ class Ville
     // findById
     public static function findById($id)
     {
-        $query = Flight::db()->query('SELECT * FROM bn_ville WHERE id = ?', [$id]);
+        $query = Flight::db()->prepare('SELECT * FROM bn_ville WHERE id = ?');
+        $query->execute([$id]);
         return $query->fetch();
     }
 }
