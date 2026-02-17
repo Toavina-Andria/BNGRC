@@ -31,7 +31,8 @@ class Categorie
     // findById
     public static function findById($id)
     {
-        $query = Flight::db()->query('SELECT * FROM bn_categorie WHERE id = ?', [$id]);
+        $query = Flight::db()->prepare('SELECT * FROM bn_categorie WHERE id = ?');
+        $query->execute([$id]);
         return $query->fetch();
     }
 }
