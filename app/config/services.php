@@ -13,7 +13,7 @@ if ($basePath === '/' || $basePath === '\\') {
     $basePath = '';
 }
 
-$app->set('basepath', $basePath);  // Changed from 'base_path' to 'basepath'
+$app->set('base_path', $basePath);  // Changed from 'base_path' to 'basepath'
 Debugger::enable(); // Auto-detects environment
 Debugger::$logDirectory = __DIR__ . $ds . '..' . $ds . 'log'; // Log directory
 Debugger::$strictMode = true; // Show all errors (set to E_ALL & ~E_DEPRECATED for less noise)
