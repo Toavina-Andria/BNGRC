@@ -9,20 +9,16 @@
             </h5>
 
             <?php if ($existe_dans_dons): ?>
-                <div class="alert alert-danger">
+                <div class="alert alert-warning alert-dismissible fade show">
                     <i class="ti ti-alert-triangle"></i>
-                    <strong>Attention !</strong> Ce besoin existe déjà dans les dons en nature disponibles. 
-                    Veuillez utiliser le dispatch automatique plutôt que d'acheter.
-                    <div class="mt-2">
-                        <a href="<?= $basepath ?>/dons/simuler" class="btn btn-sm btn-primary">
-                            <i class="ti ti-eye"></i> Simuler le dispatch
-                        </a>
-                        <a href="<?= $basepath ?>/achats/besoins-restants" class="btn btn-sm btn-secondary">
-                            <i class="ti ti-arrow-left"></i> Retour
-                        </a>
-                    </div>
+                    <strong>Attention !</strong> Des dons en nature de cette catégorie sont disponibles. 
+                    Vous pouvez continuer si vous préférez acheter, mais considérez d'abord 
+                    <a href="<?= $basepath ?>/dons/dispatch" class="alert-link">le dispatch automatique</a>.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            <?php else: ?>
+            <?php endif; ?>
+
+            <!-- Informations du besoin -->
 
             <!-- Informations du besoin -->
             <div class="card bg-light-primary mb-4">
@@ -69,13 +65,12 @@
                     </div>
                 </div>
             </div>
-
             <!-- Formulaire d'achat -->
             <form method="POST" action="<?= $basepath ?>/achats/insert" id="formAchat">
                 <input type="hidden" name="id_besoin" value="<?= $besoin['id'] ?>">
                 
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="quantite" class="form-label">Quantité à acheter *</label>
                         <input type="number" class="form-control" id="quantite" name="quantite" 
                                min="1" max="<?= $besoin['quantite'] ?>" required
@@ -83,7 +78,7 @@
                         <small class="text-muted">Maximum : <?= number_format($besoin['quantite'], 0, ',', ' ') ?></small>
                     </div>
                     
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="id_don_argent" class="form-label">Don en argent à utiliser *</label>
                         <select class="form-select" id="id_don_argent" name="id_don_argent" required onchange="verifierMontant()">
                             <option value="">-- Sélectionner un don --</option>
@@ -99,6 +94,17 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+                    
+                    <div class="col-md-4">
+                        <label for="frais_pourcentage" class="form-label">Pourcentage de frais *</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="frais_pourcentage" name="frais_pourcentage" 
+                                   value="10" min="0" step="0.01" required
+                                   oninput="calculerMontants()">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <small class="text-muted">Par défaut : 10%</small>
+                    </div>
                 </div>
 
                 <!-- Récapitulatif des montants -->
@@ -111,7 +117,7 @@
                                 <span id="montant_base" class="fs-5">0.00 Ar</span>
                             </div>
                             <div class="col-md-3">
-                                <strong>Frais (<?= number_format($frais_pourcentage, 1) ?>%) :</strong><br>
+                                <strong>Frais (<span id="pourcentage_affiche">10</span>%) :</strong><br>
                                 <span id="montant_frais" class="fs-5 text-warning">0.00 Ar</span>
                             </div>
                             <div class="col-md-3">
@@ -138,24 +144,25 @@
                     </button>
                 </div>
             </form>
-
-            <?php endif; ?>
         </div>
     </div>
 </div>
 
 <script>
 const prixUnitaire = <?= $besoin['prix_unitaire'] ?>;
-const fraisPourcentage = <?= $frais_pourcentage ?>;
 const quantiteMax = <?= $besoin['quantite'] ?>;
 
 function calculerMontants() {
     const quantite = parseFloat(document.getElementById('quantite').value) || 0;
+    const fraisPourcentage = parseFloat(document.getElementById('frais_pourcentage').value) || 0;
     
     if (quantite > quantiteMax) {
         document.getElementById('quantite').value = quantiteMax;
         return calculerMontants();
     }
+    
+    // Mettre à jour l'affichage du pourcentage
+    document.getElementById('pourcentage_affiche').textContent = fraisPourcentage.toFixed(2);
     
     const montantBase = quantite * prixUnitaire;
     const montantFrais = montantBase * (fraisPourcentage / 100);
@@ -176,6 +183,7 @@ function verifierMontant() {
     document.getElementById('montant_disponible').textContent = montantDisponible.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' Ar';
     
     const quantite = parseFloat(document.getElementById('quantite').value) || 0;
+    const fraisPourcentage = parseFloat(document.getElementById('frais_pourcentage').value) || 0;
     const montantTotal = quantite * prixUnitaire * (1 + (fraisPourcentage / 100));
     
     const alertDiv = document.getElementById('alert_insuffisant');
@@ -194,6 +202,7 @@ function verifierMontant() {
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('quantite').addEventListener('input', calculerMontants);
     document.getElementById('id_don_argent').addEventListener('change', verifierMontant);
+    document.getElementById('frais_pourcentage').addEventListener('input', calculerMontants);
 });
 </script>
 

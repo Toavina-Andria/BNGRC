@@ -161,10 +161,11 @@ class AchatService
      * @param int $id_besoin ID du besoin
      * @param int $id_don_argent ID du don en argent
      * @param int $quantite Quantité à acheter
+     * @param float $frais_pourcentage Pourcentage de frais personnalisé pour cet achat
      * @return void
      * @throws \Exception En cas d'erreur
      */
-    public static function processAchat($id_besoin, $id_don_argent, $quantite)
+    public static function processAchat($id_besoin, $id_don_argent, $quantite, $frais_pourcentage = 10)
     {
         // Récupérer le besoin
         $besoin = self::getBesoinForAchat($id_besoin);
@@ -177,19 +178,13 @@ class AchatService
             throw new \Exception("La quantité demandée dépasse le besoin restant ({$besoin['quantite']}).");
         }
 
-        // Vérifier si le besoin existe dans les dons nature
-        if (Achat::besoinExisteDansDonsNature($besoin['id_categorie'], $quantite)) {
-            throw new \Exception("Erreur : Ce besoin existe déjà dans les dons en nature disponibles. Utilisez plutôt le dispatch automatique.");
-        }
-
         // Récupérer le don en argent
         $don = self::getDonArgent($id_don_argent);
         if (!$don) {
             throw new \Exception("Don en argent non trouvé.");
         }
 
-        // Calculer les montants
-        $frais_pourcentage = Achat::getFraisPourcentage();
+        // Calculer les montants avec le pourcentage personnalisé
         $montant_base = $quantite * $besoin['prix_unitaire'];
         $montant_avec_frais = Achat::calculerMontantAvecFrais($montant_base, $frais_pourcentage);
 
@@ -202,7 +197,7 @@ class AchatService
         Flight::db()->beginTransaction();
 
         try {
-            // Créer l'achat
+            // Créer l'achat avec le pourcentage personnalisé
             Achat::create(
                 $besoin['id_ville'],
                 $id_besoin,
