@@ -48,6 +48,10 @@ $current_page = 'dons';
                                 <i class="ti ti-scale"></i> Proportionnelle
                                 <small class="d-block text-muted">Distribution équitable</small>
                             </button>
+                            <button type="submit" name="methode" value="ordre" class="btn btn-outline-primary <?= isset($methode) && $methode == 'ordre' ? 'active' : '' ?>">
+                                <i class="ti ti-sort-ascending"></i> Par Ordre (FIFO)
+                                <small class="d-block text-muted">Plus anciens d'abord</small>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -64,7 +68,8 @@ $current_page = 'dons';
                 <?php 
                     $labels = [
                         'quantite' => 'Par Quantité (petits besoins d\'abord)',
-                        'proportionnalite' => 'Proportionnelle'
+                        'proportionnalite' => 'Proportionnelle',
+                        'ordre' => 'Par Ordre - FIFO (plus anciens d\'abord)'
                     ];
                     echo $labels[$result['methode']] ?? 'Par Quantité';
                 ?>
@@ -81,7 +86,8 @@ $current_page = 'dons';
                 <?php 
                     $labels = [
                         'quantite' => 'Par Quantité (petits besoins d\'abord)',
-                        'proportionnalite' => 'Proportionnelle'
+                        'proportionnalite' => 'Proportionnelle',
+                        'ordre' => 'Par Ordre - FIFO (plus anciens d\'abord)'
                     ];
                     echo $labels[$result['methode']] ?? 'Par Quantité';
                 ?>

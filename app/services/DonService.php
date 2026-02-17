@@ -1,13 +1,14 @@
 <?php
 namespace app\services;
 use app\models\Don;
+use app\services\DispatcherService;
 use Flight;
 
 class DonService
 {
     /**
      * Dispatcher les dons selon une méthode choisie
-     * @param string $methode 'quantite' | 'proportionnalite'
+     * @param string $methode 'quantite' | 'proportionnalite' | 'ordre'
      * @return array Résultats du dispatch
      */
     public static function dispatchDons($methode = 'quantite')
@@ -15,9 +16,13 @@ class DonService
         try {
             Flight::db()->beginTransaction();
             
-            $result = ($methode == 'proportionnalite') 
-                ? self::executeDispatchParProportionnalite() 
-                : self::executeDispatchParQuantite();
+            if ($methode == 'ordre') {
+                $result = DispatcherService::executeDispatchFIFO();
+            } elseif ($methode == 'proportionnalite') {
+                $result = self::executeDispatchParProportionnalite();
+            } else {
+                $result = self::executeDispatchParQuantite();
+            }
             
             Flight::db()->commit();
             return $result;
@@ -366,16 +371,22 @@ class DonService
 
     /**
      * Simuler le dispatch sans l'appliquer (with method choice)
-     * @param string $methode 'quantite' | 'proportionnalite'
+     * @param string $methode 'quantite' | 'proportionnalite' | 'ordre'
      * @return array Résultats du dispatch simulé
      */
     public static function simulateDispatch($methode = 'quantite')
     {
         try {
             Flight::db()->beginTransaction();
-            $result = ($methode == 'proportionnalite') 
-                ? self::executeDispatchParProportionnalite() 
-                : self::executeDispatchParQuantite();
+            
+            if ($methode == 'ordre') {
+                $result = DispatcherService::executeDispatchFIFO();
+            } elseif ($methode == 'proportionnalite') {
+                $result = self::executeDispatchParProportionnalite();
+            } else {
+                $result = self::executeDispatchParQuantite();
+            }
+            
             Flight::db()->rollBack(); // Annuler tous les changements
             $result['simulation'] = true;
             return $result;

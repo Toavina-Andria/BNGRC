@@ -97,7 +97,7 @@ class DonController{
             $methode = $_POST['methode'] ?? $_GET['methode'] ?? 'quantite';
             
             // Valider la méthode
-            $methodes_valides = ['quantite', 'proportionnalite'];
+            $methodes_valides = ['quantite', 'proportionnalite', 'ordre'];
             if (!in_array($methode, $methodes_valides)) {
                 $methode = 'quantite';
             }
@@ -121,7 +121,7 @@ class DonController{
             $methode = $_POST['methode'] ?? $_GET['methode'] ?? 'quantite';
             
             // Valider la méthode
-            $methodes_valides = ['quantite', 'proportionnalite'];
+            $methodes_valides = ['quantite', 'proportionnalite', 'ordre'];
             if (!in_array($methode, $methodes_valides)) {
                 $methode = 'quantite';
             }

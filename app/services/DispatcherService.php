@@ -14,29 +14,40 @@ class DispatcherService
      */
     public static function dispatchDons()
     {
-        $result = self::initializeResult();
-
         try {
             Flight::db()->beginTransaction();
-
-            // Dispatcher les dons en nature
-            $natureResult = self::dispatchInKindDonations();
-            $result = array_merge($result, $natureResult);
-
-            // Dispatcher les dons en argent
-            $argentResult = self::dispatchMoneyDonations();
-            $result = array_merge($result, $argentResult);
-
-            // Compter les besoins satisfaits
-            $result['besoins_satisfaits'] = self::countSatisfiedNeeds();
-
+            $result = self::executeDispatchFIFO();
             Flight::db()->commit();
             return $result;
-
         } catch (\Exception $e) {
             Flight::db()->rollBack();
             throw $e;
         }
+    }
+
+    /**
+     * Exécute le dispatch FIFO sans gérer les transactions
+     * @return array Résultat du dispatch avec statistiques
+     */
+    public static function executeDispatchFIFO()
+    {
+        $result = self::initializeResult();
+
+        // Dispatcher les dons en nature
+        $natureResult = self::dispatchInKindDonations();
+        $result = array_merge($result, $natureResult);
+
+        // Dispatcher les dons en argent
+        $argentResult = self::dispatchMoneyDonations();
+        $result = array_merge($result, $argentResult);
+
+        // Compter les besoins satisfaits
+        $result['besoins_satisfaits'] = self::countSatisfiedNeeds();
+        
+        // Ajouter la méthode utilisée
+        $result['methode'] = 'ordre';
+
+        return $result;
     }
 
     /**
@@ -50,7 +61,8 @@ class DispatcherService
             'dons_argent_utilises' => 0,
             'montant_argent_utilise' => 0,
             'besoins_satisfaits' => 0,
-            'details' => []
+            'details' => [],
+            'methode' => 'ordre'
         ];
     }
 
