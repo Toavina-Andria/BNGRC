@@ -6,6 +6,7 @@ use app\controllers\DonController;
 use app\controllers\DashboardController;
 use app\controllers\VilleController;
 use app\controllers\AchatController;
+use app\controllers\InsertionController;
 use app\middlewares\SecurityHeadersMiddleware;
 use flight\Engine;
 use flight\net\Router;
@@ -61,12 +62,12 @@ $router->group('', function(Router $router)  {
 				// Liste des sinistres
 		$router->get('/liste', [SinistreController::class, 'getAllSinistres']);
 		// formulaire d'ajout de sinistre (GET) et traitement (POST)
-		$router->get('/insert', [\app\controllers\InsertionController::class, 'showSinistreForm']);
-		$router->post('/insert', [\app\controllers\InsertionController::class, 'insertSinistre']);
+		$router->get('/insert', [InsertionController::class, 'showSinistreForm']);
+		$router->post('/insert', [InsertionController::class, 'insertSinistre']);
 			// routes pour besoins rattachés aux sinistres
 		$router->group('/besoins', function() use ($router) {
-				$router->get('/insert', [\app\controllers\InsertionController::class, 'showBesoinForm']);
-				$router->post('/insert', [\app\controllers\InsertionController::class, 'insertBesoin']);
+				$router->get('/insert', [InsertionController::class, 'showBesoinForm']);
+				$router->post('/insert', [InsertionController::class, 'insertBesoin']);
 		});
 	});
 
