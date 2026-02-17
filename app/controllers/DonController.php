@@ -90,11 +90,19 @@ class DonController{
         ]);
     }
 
-    // Dispatcher automatiquement les dons aux besoins
+    // Dispatcher automatiquement les dons aux besoins avec la méthode choisie
     public function dispatchDons()
     {
         try {
-            $result = DonService::dispatchDons();
+            $methode = $_POST['methode'] ?? $_GET['methode'] ?? 'quantite';
+            
+            // Valider la méthode
+            $methodes_valides = ['quantite', 'proportionnalite'];
+            if (!in_array($methode, $methodes_valides)) {
+                $methode = 'quantite';
+            }
+
+            $result = DonService::dispatchDons($methode);
             
             $this->app->render('don/dispatch', [
                 'basepath' => $this->app->get('base_path'),
@@ -106,16 +114,25 @@ class DonController{
         }
     }
 
-    // Simuler le dispatch sans l'appliquer
+    // Simuler le dispatch sans l'appliquer avec la méthode choisie
     public function simulateDispatch()
     {
         try {
-            $result = DonService::simulateDispatch();
+            $methode = $_POST['methode'] ?? $_GET['methode'] ?? 'quantite';
+            
+            // Valider la méthode
+            $methodes_valides = ['quantite', 'proportionnalite'];
+            if (!in_array($methode, $methodes_valides)) {
+                $methode = 'quantite';
+            }
+
+            $result = DonService::simulateDispatch($methode);
             
             $this->app->render('don/dispatch', [
                 'basepath' => $this->app->get('base_path'),
                 'result' => $result,
-                'simulation' => true
+                'simulation' => true,
+                'methode' => $methode
             ]);
         } catch (Throwable $e) {
             $this->app->halt(500, "Erreur : " . $e->getMessage());

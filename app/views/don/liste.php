@@ -76,7 +76,7 @@ $current_page = 'dons';
                                         <td>
                                             <?php if ($don['type'] == 'nature'): ?>
                                                 <span class="badge bg-primary-subtle text-primary">
-                                                    <?= htmlspecialchars($don['categorie_nom']) ?>
+                                                    <?= htmlspecialchars($don['categorie_nom'] ?? 'Sans catégorie') ?>
                                                 </span>
                                             <?php else: ?>
                                                 <span class="text-muted">-</span>
@@ -94,10 +94,10 @@ $current_page = 'dons';
                                         <!-- Montant (pour dons argent) -->
                                         <td class="fw-semibold">
                                             <?php if ($don['type'] == 'argent'): ?>
-                                                <div><?= number_format($don['montant'], 0, ',', ' ') ?> Ar</div>
-                                                <?php if ($don['montant_restant'] < $don['montant']): ?>
-                                                    <small class="text-success">
-                                                        Restant: <?= number_format($don['montant_restant'], 0, ',', ' ') ?> Ar
+                                                    <div><?= number_format($don['montant'] ?? 0, 0, ',', ' ') ?> Ar</div>
+                                                    <?php if (($don['montant_restant'] ?? 0) < ($don['montant'] ?? 0)): ?>
+                                                        <small class="text-success">
+                                                            Restant: <?= number_format($don['montant_restant'] ?? 0, 0, ',', ' ') ?> Ar
                                                     </small>
                                                 <?php endif; ?>
                                             <?php else: ?>

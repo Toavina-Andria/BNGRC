@@ -29,11 +29,46 @@ $current_page = 'dons';
         </div>
     </div>
 
+    <!-- Sélection de la méthode (avant simulation/résultat) -->
+    <?php if ($simulation): ?>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold mb-3">
+                            <i class="ti ti-settings"></i> Choisir la méthode de dispatch
+                        </h5>
+                        <p class="text-muted mb-3">Sélectionnez la stratégie de distribution qui convient le mieux à vos besoins :</p>
+                        <form method="GET" class="d-flex gap-2 flex-wrap">
+                            <button type="submit" name="methode" value="quantite" class="btn btn-outline-info <?= (!isset($methode) || $methode == 'quantite') ? 'active' : '' ?>">
+                                <i class="ti ti-arrow-narrow-down"></i> Par Quantité
+                                <small class="d-block text-muted">Petits besoins d'abord</small>
+                            </button>
+                            <button type="submit" name="methode" value="proportionnalite" class="btn btn-outline-success <?= isset($methode) && $methode == 'proportionnalite' ? 'active' : '' ?>">
+                                <i class="ti ti-scale"></i> Proportionnelle
+                                <small class="d-block text-muted">Distribution équitable</small>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <!-- Message de simulation -->
     <?php if ($simulation): ?>
         <div class="alert alert-info">
             <i class="ti ti-info-circle"></i>
-            <strong>Mode Simulation :</strong> Ceci est une prévisualisation du dispatch. 
+            <strong>Mode Simulation :</strong> Ceci est une prévisualisation du dispatch utilisant la méthode 
+            <strong>
+                <?php 
+                    $labels = [
+                        'quantite' => 'Par Quantité (petits besoins d\'abord)',
+                        'proportionnalite' => 'Proportionnelle'
+                    ];
+                    echo $labels[$result['methode']] ?? 'Par Quantité';
+                ?>
+            </strong>.
             Aucune modification n'a été appliquée à la base de données. 
             Cliquez sur "Valider le Dispatch" pour appliquer réellement la distribution.
         </div>
@@ -41,7 +76,16 @@ $current_page = 'dons';
         <div class="alert alert-success">
             <i class="ti ti-check"></i>
             <strong>Dispatch effectué avec succès !</strong> 
-            Les dons ont été distribués aux besoins selon la logique définie.
+            Les dons ont été distribués aux besoins selon la méthode 
+            <strong>
+                <?php 
+                    $labels = [
+                        'quantite' => 'Par Quantité (petits besoins d\'abord)',
+                        'proportionnalite' => 'Proportionnelle'
+                    ];
+                    echo $labels[$result['methode']] ?? 'Par Quantité';
+                ?>
+            </strong>.
         </div>
     <?php endif; ?>
 
