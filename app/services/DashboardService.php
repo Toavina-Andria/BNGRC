@@ -1,5 +1,6 @@
 <?php
 namespace app\services;
+use app\models\Data;
 use Flight;
 
 class DashboardService
@@ -21,7 +22,7 @@ class DashboardService
     public static function getTotalDons()
     {
         $query = Flight::db()->query('
-            SELECT 
+            SELECT
                 COUNT(DISTINCT d.id) as nb_total_dons,
                 SUM(CASE WHEN d.type = "argent" THEN da.montant_restant ELSE 0 END) as total_argent_disponible
             FROM bn_don d
@@ -34,10 +35,10 @@ class DashboardService
      * Calculer les montants totaux des besoins
      * @return array Montant total et quantité totale
      */
-    public static function getBesoinsTotaux() 
+    public static function getBesoinsTotaux()
     {
         $query = Flight::db()->query('
-            SELECT 
+            SELECT
                 SUM(quantite * prix_unitaire) as montant_total,
                 SUM(quantite) as quantite_totale
             FROM bn_sinistre_besoin
@@ -145,7 +146,7 @@ class DashboardService
 
     /**
      * Supprimer toutes les données utilisateur de la base (sinistres, dons, achats, villes, etc.)
-     * Les tables de configuration comme régions ou catégories restent intactes.
+     * et restaurer les données par défaut du script de base de données
      */
     public static function resetDatabase()
     {
@@ -165,5 +166,10 @@ class DashboardService
             $db->exec("TRUNCATE TABLE $table");
         }
         $db->exec('SET FOREIGN_KEY_CHECKS=1');
+
+        // Restaurer les données par défaut
+        Data::restoreDefaultData();
     }
+
+
 }
