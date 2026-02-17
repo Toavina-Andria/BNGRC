@@ -20,10 +20,24 @@ $current_page = 'dashboard';
                     <a href="<?= $basepath ?>/dons/insert" class="btn btn-sm btn-success">
                         <i class="ti ti-gift"></i> Enregistrer un don
                     </a>
+                    <a href="<?= $basepath ?>/reset" class="btn btn-sm btn-outline-secondary">
+                        <i class="ti ti-refresh-alert"></i> Réinitialiser
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <?php if (!empty($reset)): ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Toutes les données ont été supprimées avec succès. Vous pouvez ajouter de nouvelles entrées.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <!-- Statistics Cards -->
     <div class="row">

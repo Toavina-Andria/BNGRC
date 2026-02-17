@@ -20,6 +20,10 @@ $router->group('', function(Router $router)  {
 
 	$router->get('/', [DashboardController::class, 'index']);
 
+	// reset database data (confirmation and action)
+	$router->get('/reset', [DashboardController::class, 'confirmReset']);
+	$router->post('/reset', [DashboardController::class, 'resetData']);
+
 	$router->group('/villes', function() use ($router) {
 		// Voir les besoins d'une ville
 		$router->get('/besoins', [VilleController::class, 'showVilleBesoins']);
