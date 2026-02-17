@@ -31,7 +31,14 @@ class Sinistre
     // findById
     public static function findById($id)
     {
-        $query = Flight::db()->query('SELECT * FROM bn_sinistre WHERE id = ?', [$id]);
+        $query = Flight::db()->prepare('SELECT * FROM bn_sinistre WHERE id = ?');
+        $query->execute([$id]);
         return $query->fetch();
+    }
+    
+    // getLastInsertId
+    public static function getLastInsertId()
+    {
+        return Flight::db()->lastInsertId();
     }
 }

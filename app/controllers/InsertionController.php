@@ -3,6 +3,8 @@ namespace app\controllers;
 
 use app\models\Sinistre;
 use app\models\SinistreBesoin;
+use app\models\Ville;
+use app\models\CategorieBesoin;
 use app\utils\Validator;
 use Throwable;
 
@@ -17,7 +19,8 @@ class InsertionController
 
        // affiche le formulaire d'ajout de sinistre
     public function showSinistreForm() {
-        $this->app->render('sinistre/form');
+        $villes = Ville::findAll();
+        $this->app->render('sinistre/form', ['villes' => $villes]);
     }
 
     public function insertSinistre() {
@@ -30,9 +33,7 @@ class InsertionController
             }
 
             // Vérifier que la ville existe
-            $queryVille = \Flight::db()->prepare('SELECT id FROM bn_ville WHERE id = ?');
-            $queryVille->execute([$idVille]);
-            $villeExists = $queryVille->fetch();
+            $villeExists = Ville::findById($idVille);
 
             if (!$villeExists) {
                 $this->app->halt(400, "Ville invalide ou inexistante.");
@@ -41,11 +42,7 @@ class InsertionController
             Sinistre::create(intval($nombre), intval($idVille));
             
             // Récupérer l'id du dernier sinistre inséré
-            $queryLast = \Flight::db()->prepare('SELECT id FROM bn_sinistre ORDER BY id DESC LIMIT 1');
-            $queryLast->execute();
-            $lastSinistre = $queryLast->fetch();
-            
-            $sinistreId = $lastSinistre['id'] ?? null;
+            $sinistreId = Sinistre::getLastInsertId();
 
             
             // Rediriger vers la page d'insertion de besoin avec l'id du sinistre
@@ -63,16 +60,18 @@ class InsertionController
             $this->app->halt(400, "ID sinistre manquant.");
         }
         
-        // Vérifier que le sinistre existe
-        $querySinistre = \Flight::db()->prepare('SELECT id FROM bn_sinistre WHERE id = ?');
-        $querySinistre->execute([$sinistreId]);
-        $sinistre = $querySinistre->fetch();
+        $sinistre = Sinistre::findById($sinistreId);
         
         if (!$sinistre) {
             $this->app->halt(404, "Sinistre non trouvé.");
         }
         
-        $this->app->render('sinistre/besoin_form', ['sinistre_id' => $sinistreId]);
+        $categories = CategorieBesoin::findAll();
+        
+        $this->app->render('sinistre/besoin_form', [
+            'sinistre_id' => $sinistreId,
+            'categories' => $categories
+        ]);
     }
 
     public function insertBesoin() {
@@ -93,18 +92,14 @@ class InsertionController
             }
 
             // Vérifier que le sinistre existe
-            $querySinistre = \Flight::db()->prepare('SELECT id FROM bn_sinistre WHERE id = ?');
-            $querySinistre->execute([$idSinistre]);
-            $sinistreExists = $querySinistre->fetch();
+            $sinistreExists = Sinistre::findById($idSinistre);
 
             if (!$sinistreExists) {
                 $this->app->halt(400, "Sinistre invalide ou inexistant.");
             }
 
             // Vérifier que la catégorie existe
-            $queryCategorie = \Flight::db()->prepare('SELECT id FROM bn_categorie_besoin WHERE id = ?');
-            $queryCategorie->execute([$idCategorie]);
-            $categorieExists = $queryCategorie->fetch();
+            $categorieExists = CategorieBesoin::findById($idCategorie);
 
             if (!$categorieExists) {
                 $this->app->halt(400, "Catégorie invalide ou inexistante.");
