@@ -85,7 +85,7 @@
                     
                     <div class="col-md-6">
                         <label for="id_don_argent" class="form-label">Don en argent à utiliser *</label>
-                        <select class="form-select" id="id_don_argent" name "id_don_argent" required onchange="verifierMontant()">
+                        <select class="form-select" id="id_don_argent" name="id_don_argent" required onchange="verifierMontant()">
                             <option value="">-- Sélectionner un don --</option>
                             <?php foreach ($dons_argent as $don): ?>
                                 <option value="<?= $don['id_don'] ?>" 
