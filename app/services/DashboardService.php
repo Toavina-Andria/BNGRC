@@ -142,4 +142,28 @@ class DashboardService
             'derniere_mise_a_jour' => date('Y-m-d H:i:s')
         ];
     }
+
+    /**
+     * Supprimer toutes les données utilisateur de la base (sinistres, dons, achats, villes, etc.)
+     * Les tables de configuration comme régions ou catégories restent intactes.
+     */
+    public static function resetDatabase()
+    {
+        $db = Flight::db();
+        // désactiver les vérifications de clés étrangères pour pouvoir tronquer
+        $db->exec('SET FOREIGN_KEY_CHECKS=0');
+        $tables = [
+            'bn_sinistre_besoin',
+            'bn_sinistre',
+            'bn_don_argent',
+            'bn_don_nature',
+            'bn_don',
+            'bn_achat',
+            'bn_ville'
+        ];
+        foreach ($tables as $table) {
+            $db->exec("TRUNCATE TABLE $table");
+        }
+        $db->exec('SET FOREIGN_KEY_CHECKS=1');
+    }
 }

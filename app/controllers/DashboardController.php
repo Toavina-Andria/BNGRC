@@ -32,11 +32,15 @@ class DashboardController
         // Récupérer les totaux des dons via le service
         $total_dons = DashboardService::getTotalDons();
 
+        // optionally show reset success message
+        $reset = $_GET['reset'] ?? null;
+
         $this->app->render('dashboard/dashboard', [
             'basepath' => $this->app->get('base_path'),
             'stats' => $stats,
             'villes' => $villes,
-            'total_dons' => $total_dons
+            'total_dons' => $total_dons,
+            'reset' => $reset
         ]);
     }
 
@@ -71,6 +75,34 @@ class DashboardController
     private function getRecapitulationData()
     {
         return DashboardService::getRecapitulationData();
+    }
+
+    /**
+     * Afficher la page de confirmation de réinitialisation
+     */
+    public function confirmReset()
+    {
+        $this->app->render('dashboard/reset_confirm', [
+            'basepath' => $this->app->get('base_path'),
+        ]);
+    }
+
+    /**
+     * Exécuter la réinitialisation des données puis rediriger vers le tableau de bord
+     */
+    public function resetData()
+    {
+        try {
+            DashboardService::resetDatabase();
+            // redirection vers la page principale avec message de succès
+            header('Location: ' . $this->app->get('base_path') . '/?reset=1');
+            exit;
+        } catch (\Exception $e) {
+            // en cas d'erreur on peut afficher un message basique ou loguer
+            Flight::flash('error', 'Impossible de réinitialiser la base: ' . $e->getMessage());
+            header('Location: ' . $this->app->get('base_path'));
+            exit;
+        }
     }
 
 }
