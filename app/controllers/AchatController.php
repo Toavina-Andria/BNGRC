@@ -112,7 +112,8 @@ class AchatController
             AchatService::processAchat($id_besoin, $id_don_argent, $quantite, $frais_pourcentage);
 
             // Rediriger vers la liste des achats
-            $this->app->redirect('/achats/liste');
+            $basepath = $this->app->get('base_path');
+            $this->app->redirect($basepath.'/achats/liste');
 
         } catch (Throwable $e) {
             $this->app->halt(500, "Erreur : " . $e->getMessage());
