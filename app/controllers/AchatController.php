@@ -75,15 +75,11 @@ class AchatController
             // Récupérer les dons en argent disponibles via le service
             $dons_argent = AchatService::getDonsArgentDisponibles();
 
-            // Récupérer le pourcentage de frais
-            $frais_pourcentage = Achat::getFraisPourcentage();
-
             $this->app->render('achat/form', [
                 'basepath' => $this->app->get('base_path'),
                 'besoin' => $besoin,
                 'existe_dans_dons' => $existe_dans_dons,
-                'dons_argent' => $dons_argent,
-                'frais_pourcentage' => $frais_pourcentage
+                'dons_argent' => $dons_argent
             ]);
         } catch (Throwable $e) {
             $this->app->halt(500, "Erreur : " . $e->getMessage());
@@ -99,18 +95,21 @@ class AchatController
             $id_besoin = $this->app->request()->data->id_besoin;
             $id_don_argent = $this->app->request()->data->id_don_argent;
             $quantite = $this->app->request()->data->quantite;
+            $frais_pourcentage = $this->app->request()->data->frais_pourcentage ?? 10;
 
             // Validation
             if (!Validator::validateId($id_besoin) || 
                 !Validator::validateId($id_don_argent) || 
-                !Validator::validatePositiveInteger($quantite)) {
+                !Validator::validatePositiveInteger($quantite) ||
+                !is_numeric($frais_pourcentage) || $frais_pourcentage < 0) {
                 $this->app->halt(400, "Données invalides.");
             }
 
             $quantite = intval($quantite);
+            $frais_pourcentage = floatval($frais_pourcentage);
 
             // Traiter l'achat via le service (qui gère la transaction complète)
-            AchatService::processAchat($id_besoin, $id_don_argent, $quantite);
+            AchatService::processAchat($id_besoin, $id_don_argent, $quantite, $frais_pourcentage);
 
             // Rediriger vers la liste des achats
             $this->app->redirect('/achats/liste');
