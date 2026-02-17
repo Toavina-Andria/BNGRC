@@ -52,7 +52,7 @@ class DonController{
 
                 Don::createDonArgent($donateur, floatval($montant), $id_ville);
                 
-            } else if ($type == 'nature') {
+            } elseif ($type == 'nature') {
                 $id_categorie = $this->app->request()->data->id_categorie_besoin;
                 $description = Validator::sanitizeString($this->app->request()->data->description);
                 $quantite = $this->app->request()->data->quantite;
@@ -62,11 +62,9 @@ class DonController{
                 }
 
                 // Vérifier que la catégorie existe
-                $queryCategorie = Flight::db()->prepare('SELECT id FROM bn_categorie_besoin WHERE id = ?');
-                $queryCategorie->execute([$id_categorie]);
-                $categorieExists = $queryCategorie->fetch();
+                $categorie = CategorieBesoin::findById($id_categorie);
 
-                if (!$categorieExists) {
+                if (!$categorie) {
                     $this->app->halt(400, "Catégorie invalide ou inexistante.");
                 }
 
